@@ -58,6 +58,10 @@ html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col
 
 /* Status Badges */
 
+div.agile-board.autoscroll td.issue-status-col[data-id] .issue-card:hover {
+    z-index: 21;
+}
+
 div.agile-board.autoscroll td.issue-status-col[data-id] .issue-card:hover:before,
 div.agile-board.autoscroll td.issue-status-col .issue-card.issue-urgent:before,
 div.agile-board.autoscroll td.issue-status-col .issue-card.issue-deadline-expired:before {
@@ -130,9 +134,9 @@ div.agile-board.autoscroll td.issue-status-col .issue-card.issue-deadline-expire
     padding: 3px 5px;
     border: 1px solid red;
     background-image:
-       repeating-linear-gradient(45deg, 
-                                white 0%, 
-                                white 10%, pink 10%, 
+       repeating-linear-gradient(45deg,
+                                white 0%,
+                                white 10%, pink 10%,
                                 pink 20%, pink 20%);
     color: black;
     font-weight: bold;
