@@ -34,12 +34,12 @@ function getMonthByName($month) {
     month['November'] = 10;
     month['Dezember'] = 11;
 
-    console.log($month);
-    console.log($month.replace('ä', 'ae'));
-    console.log(month[$month]);
-
     return month[$month];
 }
+
+// Project Info-Box - Legend - Revolver
+$projectInfoBox = $('<div id="project-info-box">');
+$('#wrapper3').prepend($projectInfoBox);
 
 // Status badget - Tracker Status - Add css class
 
@@ -61,14 +61,6 @@ $user = $userLink.replace(/[^0-9]/g, '');
 
 $userTasks = $('div.agile-board.autoscroll td.issue-status-col .issue-card .assigned-user a[href="' + $userLink + '"]').parents('.issue-card');
 $userTasks.addClass('issue-my-task');
-
-// Project Info-Box - Legend - Revolver
-$projectInfoBox = $('<div id="project-info-box">');
-$projectInfoBox.append('<div class="project-revolver"><h3>Revolver</h3></div>');
-$projectInfoBox.children('.project-revolver').append('<ul>');
-$projectInfoBox.find('.project-revolver ul').append('<li>AHK-Upgrade: 0403-1081C</li>');
-$projectInfoBox.find('.project-revolver ul').append('<li>FMP-Upgrade und Weiterentwicklung: 0403-1082-C</li>');
-$('#wrapper3').prepend($projectInfoBox);
 
 // Deadline highlighting
 $dateToday = new Date();
@@ -100,10 +92,45 @@ $swimlanes.each(function(){
     });
 });
 
-// Project Info-Box - Legend - Revolver
-$projectInfoBox = $('<div id="project-info-box">');
-$projectInfoBox.append('<div class="project-revolver"><h3>Revolver</h3></div>');
+// Add revolver information to project info box
+$projectInfoBox.append('<div class="project-info-module project-revolver"><h3>Revolver</h3></div>');
 $projectInfoBox.children('.project-revolver').append('<ul>');
 $projectInfoBox.find('.project-revolver ul').append('<li>AHK-Upgrade: 0403-1081C</li>');
 $projectInfoBox.find('.project-revolver ul').append('<li>FMP-Upgrade und Weiterentwicklung: 0403-1082-C</li>');
-$('#wrapper3').prepend($projectInfoBox);
+
+// Add urgent tasks to project info box
+$tasksUrgent = $('.issue-card.issue-urgent');
+$boxTasksUrgent = $('<div class="project-info-module project-tasks project-tasks-urgent">')
+    .append('<h3>Urgents</h3>')
+    .append('<ul>');
+if ($tasksUrgent.length) {
+    $tasksUrgent.each(function(){
+        $taskId = $(this).find('.issue-id strong').clone();
+        $taskTitle = $(this).find('.name a').clone();
+        $boxTasksUrgent.children('ul').append($('<li>').append($taskId).append(' ').append($taskTitle));
+    });
+} else {
+    $boxTasksUrgent.append('<p>No urgents right now</p>');
+}
+$projectInfoBox.append($boxTasksUrgent);
+
+// Add launches to project info box
+$tasksLaunches = $('.issue-card .name a:contains("Launch")').closest('.issue-card');
+$boxTasksLaunches = $('<div class="project-info-module project-tasks project-tasks-launches">')
+    .append('<h3>Launches</h3>')
+    .append('<ul>');
+if ($tasksLaunches.length) {
+    $tasksLaunches.each(function() {
+        $taskId = $(this).find('.issue-id strong').clone();
+        $taskTitle = $(this).find('.name a').clone();
+        $boxTasksLaunches.children('ul').append($('<li>').append($taskId).append(' ').append($taskTitle));
+    });
+} else {
+    $boxTasksLaunches.append('<p>No launches right now</p>');
+}
+$projectInfoBox.append($boxTasksLaunches);
+
+// Hide all swimlanes on start
+$('.swimlane .toggle-all').first().trigger('click');
+// Show only swimlane "Sprint"
+$('.swimlane .expander').siblings('a:contains("Sprint")').siblings('.expander').trigger('click');
