@@ -1,5 +1,6 @@
+var date = new Date();
 var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://cdn.jsdelivr.net/gh/smeviuscps/redmine-custom-styles/public/agile-board.js", true);
+xhr.open("GET", "https://cdn.jsdelivr.net/gh/smeviuscps/redmine-custom-styles/public/agile-board.js?" + date.getTime(), true);
 xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
         eval(xhr.responseText);
