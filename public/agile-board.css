@@ -1,0 +1,165 @@
+/* Agile board */
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll {
+    overflow: scroll;
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll .container-fixed {
+    width: 150%;
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll .container-fixed table.list.issues-board.status-colors.sticky {
+    display: none;
+}
+
+/* Status Columns */
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id]:before {
+    background: #50a58c;
+    display: block;
+    color: white;
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="1"]:before {
+    content: "Neu";
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="2"]:before {
+    content: "In Bearbeitung";
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="3"]:before {
+    content: "Gelöst";
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="4"]:before {
+    content: "Feedback";
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="5"]:before {
+    content: "Erledigt";
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="6"]:before {
+    content: "Abgewiesen";
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="7"]:before {
+    content: "On hold";
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="8"]:before {
+    content: "Abgenommen";
+}
+
+html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="9"]:before {
+    content: "Release";
+}
+
+/* Status Badges */
+
+div.agile-board.autoscroll td.issue-status-col[data-id] .issue-card:hover:before,
+div.agile-board.autoscroll td.issue-status-col .issue-card.issue-urgent:before,
+div.agile-board.autoscroll td.issue-status-col .issue-card.issue-deadline-expired:before {
+    position: absolute;
+    top: 0;
+    z-index: 20;
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id] .issue-card:hover:before {
+    left: 100%;
+    border: 1px solid #aaa;
+    display: block;
+    padding: 3px 5px;
+    background: #eee;
+    color: inherit;
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id="1"] .issue-card:hover:before {
+    content: "Neu";
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id="2"] .issue-card:hover:before {
+    content: "In Bearbeitung";
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id="3"] .issue-card:hover:before {
+    content: "Gelöst";
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id="4"] .issue-card:hover:before {
+    content: "Feedback";
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id="5"] .issue-card:hover:before {
+    content: "Erledigt";
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id="6"] .issue-card:hover:before {
+    content: "Abgewiesen";
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id="7"] .issue-card:hover:before {
+    content: "On hold";
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id="8"] .issue-card:hover:before {
+    content: "Abgenommen";
+}
+
+div.agile-board.autoscroll td.issue-status-col[data-id="9"] .issue-card:hover:before {
+    content: "Release";
+}
+
+/* Status - Urgent */
+
+div.agile-board.autoscroll td.issue-status-col .issue-card.issue-urgent:before {
+    left: 100%;
+    padding: 3px 5px;
+    border: 1px solid red;
+    background: red;
+    color: white;
+    font-weight: bold;
+    content: "URGENT";
+}
+
+/* Status - Deadline expired */
+
+div.agile-board.autoscroll td.issue-status-col .issue-card.issue-deadline-expired:before {
+    left: 100%;
+    padding: 3px 5px;
+    border: 1px solid red;
+    background-image:
+       repeating-linear-gradient(45deg, 
+                                white 0%, 
+                                white 10%, pink 10%, 
+                                pink 20%, pink 20%);
+    color: black;
+    font-weight: bold;
+    content: "Abgabedatum abgelaufen";
+}
+
+/* My tasks */
+
+div.agile-board.autoscroll td.issue-status-col .issue-card.issue-my-task:after {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    z-index: 20;
+    background: lightblue;
+    padding: 3px 5px;
+    content: "My task";
+    white-space: nowrap;
+}
+
+/* Info Box */
+#project-info-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: white;
+    border: 1px solid black;
+    padding: 5px 10px;
+}
+
