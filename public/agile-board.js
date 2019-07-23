@@ -1,17 +1,45 @@
-/*
- * _______________
- * |       .-.   |
- * |      // ``  |
- * |     //      |
- * |  == ===-_.-'|
- * |   //  //    |
- * |__//_________|
- *
- * Copyright (c) ${YEAR} familie-redlich :systeme <systeme@familie-redlich.de>
- * @link     http://www.familie-redlich.de
- *
- *
+/**
+ * Custom javascript for redmine
+ * Agil board
  */
+
+/**
+ * Get month id by name
+ * @param $month
+ */
+function getMonthByName($month) {
+    var month = [];
+
+    // Replacing umlauts
+    $month = $month
+        .replace(/\u00c4/g, 'Ae')
+        .replace(/\u00e4/g, 'ae')
+        .replace(/\u00d6/g, 'Oe')
+        .replace(/\u00f6/g, 'oe')
+        .replace(/\u00dc/g, 'Ue')
+        .replace(/\u00fc/g, 'ue')
+        .replace(/\u00df/g, 'ss')
+    ;
+
+    month['Januar'] = 0;
+    month['Februar'] = 1;
+    month['Maerz'] = 2;
+    month['April'] = 3;
+    month['Mai'] = 4;
+    month['Juni'] = 5;
+    month['Juli'] = 6;
+    month['August'] = 7;
+    month['September'] = 8;
+    month['Oktober'] = 9;
+    month['November'] = 10;
+    month['Dezember'] = 11;
+
+    console.log($month);
+    console.log($month.replace('ä', 'ae'));
+    console.log(month[$month]);
+
+    return month[$month];
+}
 
 // Status badget - Tracker Status - Add css class
 
@@ -50,11 +78,25 @@ $swimlanes.each(function(){
     $swimlane = $(this);
     $swimlane.find('.issue-card').each(function(){
         $task = $(this);
-        $date = $task.find('.attributes:not(:empty)').text().replace('Abgabedatum:', '');
-        $date = new Date($.trim($date));
-        if ($date < $dateToday) {
-            $task.addClass('issue-deadline-expired');
-        }
+        $taskAttributes = $.map($task.find('.attributes:not(:empty)').html().trim().split('<br>'), $.trim);
+        $.each($taskAttributes, function(){
+            $attr = $.trim(this);
+            // Go on if "this" is not empty
+            if ($attr) {
+                $attr = $('<div>' + $attr + '</div>');
+                $attr = $attr.text();
+                $attr = $.map($attr.split(':'), $.trim);
+
+                // Handle estimate date
+                if ($attr[0] === 'Abgabedatum') {
+                    $dateParts = $attr[1].split(' ');
+                    $date = new Date($dateParts[2], getMonthByName($dateParts[1]), $dateParts[0]);
+                    if ($date < $dateToday) {
+                        $task.addClass('issue-deadline-expired');
+                    }
+                }
+            }
+        });
     });
 });
 
