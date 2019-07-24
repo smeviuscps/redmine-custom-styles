@@ -134,8 +134,8 @@ $projectInfoBox.children('.project-info-box-content').append($boxTasksLaunches);
  * Toggle project info box
  */
 $(function() {
-    $textShow = 'Infobox einblenden';
-    $textHide = 'Infobox ausblenden';
+    var $textShow = 'Infobox einblenden',
+        $textHide = 'Infobox ausblenden';
     $button = $('<button class="button toggle-project-info-box">' + $textHide + '</button>');
     $projectInfoBox = $('#project-info-box');
     $projectInfoBox.prepend($button);
@@ -166,8 +166,8 @@ $(function() {
  * Toggle full-width agile board
  */
 $(function() {
-    $textShow = 'Sidebar einblenden';
-    $textHide = 'Sidebar ausblenden';
+    var $textShow = 'Sidebar einblenden',
+        $textHide = 'Sidebar ausblenden';
     $fullWidthTrigger = $('<button class="button toggle-sidebar">' + $textHide + '</button>');
     $projectInfoBox = $('#project-info-box');
     $projectInfoBox.prepend($fullWidthTrigger);
