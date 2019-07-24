@@ -1,3 +1,30 @@
+/* Toggling content full width */
+
+#main.full-width,
+#main.full-width #content {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#main.full-width #sidebar {
+    display: none;
+}
+
+.button {
+    display: block;
+    padding: 5px 10px;
+    margin: 0;
+    color: #fff;
+    font-family: 'Bitter', Verdana, san-serif;
+    font-size: 15px;
+    line-height: 19px;
+    background: #50a58c;
+    border: 1px solid #999;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 /* Agile board */
 
 html:not(.agile-board-fullscreen) div.agile-board.autoscroll {
@@ -167,3 +194,26 @@ div.agile-board.autoscroll td.issue-status-col .issue-card.issue-my-task:after {
     padding: 5px 10px;
 }
 
+#project-info-box .project-info-module {
+    clear: both;
+}
+
+#project-info-box .button.toggle-sidebar {
+    float: right;
+}
+
+/* Button */
+.button {
+    display: block;
+    padding: 5px 10px;
+    margin: 0;
+    color: #fff;
+    font-family: 'Bitter', Verdana, san-serif;
+    font-size: 15px;
+    line-height: 19px;
+    background: #50a58c;
+    border: 1px solid #999;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}

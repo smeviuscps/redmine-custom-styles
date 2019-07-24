@@ -139,3 +139,26 @@ $(function() {
     // Show only swimlane "Sprint"
     $('.swimlane .expander').siblings('a:contains("Sprint")').siblings('.expander').trigger('click');
 });
+
+/**
+ * Toggle full-width agile board
+ */
+$(function() {
+    $textShow = 'Sidebar einblenden';
+    $textHide = 'Sidebar ausblenden';
+    $fullWidthTrigger = $('<button class="button toggle-sidebar">' + $textHide + '</button>');
+    $projectInfoBox = $('#project-info-box');
+    $projectInfoBox.prepend($fullWidthTrigger);
+
+    $('.toggle-sidebar').on('click',function(){
+        $trigger = $(this);
+        $main = $('#main');
+        if ($main.hasClass('full-width')) {
+            $main.removeClass('full-width');
+            $trigger.text($textHide);
+        } else {
+            $main.addClass('full-width');
+            $trigger.text($textShow);
+        }
+    });
+});
