@@ -16,7 +16,7 @@ if (!document.getElementById(cssId)) {
     link.id = cssId;
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = 'https://rawcdn.githack.com/smeviuscps/redmine-custom-styles/2c67cd3ee527d7cc77dc146a8e639c4d6bc7c7ed/redminecustom/public/agile-board.css';
+    link.href = 'https://rawcdn.githack.com/smeviuscps/redmine-custom-styles/b16c52d4a70b8ed651875402a9bb7e325fe808f8/redminecustom/public/agile-board.css';
     link.media = 'all';
     head.appendChild(link);
 }
