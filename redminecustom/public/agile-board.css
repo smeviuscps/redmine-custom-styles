@@ -185,6 +185,7 @@ div.agile-board.autoscroll td.issue-status-col .issue-card.issue-my-task:after {
 
 /* Info Box */
 #project-info-box {
+    width: 400px;
     position: fixed;
     top: 0;
     left: 0;
@@ -192,6 +193,15 @@ div.agile-board.autoscroll td.issue-status-col .issue-card.issue-my-task:after {
     background: white;
     border: 1px solid black;
     padding: 5px 10px;
+}
+
+#project-info-box .project-info-box-content {
+    clear: both;
+    display: none;
+}
+
+#project-info-box.open .project-info-box-content {
+    display: block;
 }
 
 #project-info-box .project-info-module {
@@ -216,4 +226,5 @@ div.agile-board.autoscroll td.issue-status-col .issue-card.issue-my-task:after {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    outline: none;
 }

@@ -38,7 +38,7 @@ function getMonthByName($month) {
 }
 
 // Project Info-Box - Legend - Revolver
-$projectInfoBox = $('<div id="project-info-box">');
+$projectInfoBox = $('<div id="project-info-box" class="open">').append('<div class="project-info-box-content">');
 $('#wrapper3').prepend($projectInfoBox);
 
 // Status badget - Tracker Status - Add css class
@@ -93,8 +93,8 @@ $swimlanes.each(function(){
 });
 
 // Add revolver information to project info box
-$projectInfoBox.append('<div class="project-info-module project-revolver"><h3>Revolver</h3></div>');
-$projectInfoBox.children('.project-revolver').append('<ul>');
+$projectInfoBox.children('.project-info-box-content').append('<div class="project-info-module project-revolver"><h3>Revolver</h3></div>');
+$projectInfoBox.find('.project-revolver').append('<ul>');
 $projectInfoBox.find('.project-revolver ul').append('<li>AHK-Upgrade: 0403-1081C</li>');
 $projectInfoBox.find('.project-revolver ul').append('<li>FMP-Upgrade und Weiterentwicklung: 0403-1082-C</li>');
 
@@ -112,7 +112,7 @@ if ($tasksUrgent.length) {
 } else {
     $boxTasksUrgent.append('<p>No urgents right now</p>');
 }
-$projectInfoBox.append($boxTasksUrgent);
+$projectInfoBox.children('.project-info-box-content').append($boxTasksUrgent);
 
 // Add launches to project info box
 $tasksLaunches = $('.issue-card .name a:contains("Launch")').closest('.issue-card');
@@ -128,7 +128,29 @@ if ($tasksLaunches.length) {
 } else {
     $boxTasksLaunches.append('<p>No launches right now</p>');
 }
-$projectInfoBox.append($boxTasksLaunches);
+$projectInfoBox.children('.project-info-box-content').append($boxTasksLaunches);
+
+/**
+ * Toggle project info box
+ */
+$(function() {
+    $textShow = 'Infobox einblenden';
+    $textHide = 'Infobox ausblenden';
+    $button = $('<button class="button toggle-project-info-box">' + $textHide + '</button>');
+    $projectInfoBox = $('#project-info-box');
+    $projectInfoBox.prepend($button);
+
+    $('.toggle-project-info-box').on('click', function() {
+        $trigger = $(this);
+        if ($projectInfoBox.hasClass('open')) {
+            $projectInfoBox.removeClass('open');
+            $trigger.text($textShow);
+        } else {
+            $projectInfoBox.addClass('open');
+            $trigger.text($textHide);
+        }
+    });
+});
 
 /**
  * Toggle swimlanes
