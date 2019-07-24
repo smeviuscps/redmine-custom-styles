@@ -130,7 +130,12 @@ if ($tasksLaunches.length) {
 }
 $projectInfoBox.append($boxTasksLaunches);
 
-// Hide all swimlanes on start
-$('.swimlane .toggle-all').first().trigger('click');
-// Show only swimlane "Sprint"
-$('.swimlane .expander').siblings('a:contains("Sprint")').siblings('.expander').trigger('click');
+/**
+ * Toggle swimlanes
+ */
+$(function() {
+    // Hide all swimlanes on start
+    $('.swimlane .toggle-all').first().trigger('click');
+    // Show only swimlane "Sprint"
+    $('.swimlane .expander').siblings('a:contains("Sprint")').siblings('.expander').trigger('click');
+});
