@@ -157,9 +157,13 @@ $(function() {
  */
 $(function() {
     // Hide all swimlanes on start
-    $('.swimlane .toggle-all').first().trigger('click');
+    $('.swimlane.group').removeClass('open');
+    $('.swimlane.group').next('.swimlane.issue').css('display', 'none');
+
     // Show only swimlane "Sprint"
-    $('.swimlane .expander').siblings('a:contains("Sprint")').siblings('.expander').trigger('click');
+    $swimlaneToShow = $('.swimlane .expander').siblings('a:contains("Sprint")').closest('.swimlane.group');
+    $swimlaneToShow.addClass('open');
+    $swimlaneToShow.next('.swimlane.issue').css('display', 'table-row');
 });
 
 /**
