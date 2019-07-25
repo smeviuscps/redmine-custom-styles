@@ -161,9 +161,13 @@ $(function() {
     $('.swimlane.group').next('.swimlane.issue').css('display', 'none');
 
     // Show only swimlane "Sprint"
-    $swimlaneToShow = $('.swimlane .expander').siblings('a:contains("Sprint")').closest('.swimlane.group');
-    $swimlaneToShow.addClass('open');
-    $swimlaneToShow.next('.swimlane.issue').css('display', 'table-row');
+    $swimlanesToShow = ['Sprint', 'Backlog'];
+    $.each($swimlanesToShow, function(swimlaneKey, swimlaneValue) {
+        var $swimlane = $('.swimlane .expander').siblings('a:contains(' + swimlaneValue + ')')
+                .closest('.swimlane.group');
+        $swimlane.addClass('open');
+        $swimlane.next('.swimlane.issue').css('display', 'table-row');
+    });
 });
 
 /**
