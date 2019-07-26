@@ -192,3 +192,36 @@ $(function() {
         }
     });
 });
+
+/**
+ * Configure showing up of swimlanes
+ */
+$(function() {
+    $projectInfoBox = $('#project-info-box');
+    $swimlanes = $('.swimlane.group');
+    $swimlanesModule = $('<div class="project-info-module project-swimlanes">')
+        .append('<h3>Swimlanes</h3>')
+        .append('<form>');
+
+    $swimlanes.each(function() {
+        var $swimlane = $(this),
+            $swimlaneTitle = $swimlane.find('.expander').siblings('a:first').text(),
+            $checkbox = $('<div><label><input type="checkbox" name="swimlanes[]" value="' + $swimlane.data('id') + '"> ' + $swimlaneTitle + '</label></div>');
+        if ($swimlane.hasClass('open')) {
+            $checkbox.find('input').prop('checked', true);
+        }
+        $swimlanesModule.find('form').append($checkbox);
+    });
+
+    $projectInfoBox.append($swimlanesModule);
+
+    $swimlanesModule.find(':checkbox').on('change', function() {
+        var $checkbox = $(this),
+            $swimlane = $('.swimlane.group[data-id="' + $checkbox.val() + '"]');
+
+        if (($checkbox.is(':checked') && !$swimlane.hasClass('open')) ||
+            (!$checkbox.is(':checked') && $swimlane.hasClass('open'))) {
+            $swimlane.find('.expander').trigger('click');
+        }
+    });
+});
