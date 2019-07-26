@@ -213,7 +213,7 @@ $(function() {
         $swimlanesModule.find('form').append($checkbox);
     });
 
-    $projectInfoBox.append($swimlanesModule);
+    $projectInfoBox.children('.project-info-box-content').append($swimlanesModule);
 
     $swimlanesModule.find(':checkbox').on('change', function() {
         var $checkbox = $(this),
