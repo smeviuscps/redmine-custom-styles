@@ -139,18 +139,26 @@ $(function() {
     $button = $('<button class="button toggle-project-info-box">' + $textHide + '</button>');
     $projectInfoBox = $('#project-info-box');
     $projectInfoBox.prepend($button);
+    if ($.cookie('projectInfoBox') === 'hidden') {
+        $projectInfoBox.removeClass('open');
+        $('.toggle-project-info-box').text($textShow);
+    }
 
     $('.toggle-project-info-box').on('click', function() {
         $trigger = $(this);
         if ($projectInfoBox.hasClass('open')) {
             $projectInfoBox.removeClass('open');
             $trigger.text($textShow);
+            $.cookie('projectInfoBox', 'hidden', {path: '/'});
         } else {
             $projectInfoBox.addClass('open');
             $trigger.text($textHide);
+            $.cookie('projectInfoBox', '', {path: '/'});
         }
     });
 });
+
+
 
 /**
  * Toggle swimlanes
@@ -180,15 +188,22 @@ $(function() {
     $projectInfoBox = $('#project-info-box');
     $projectInfoBox.prepend($fullWidthTrigger);
 
+    if ($.cookie('sidebar') === 'hidden') {
+        $('#main').addClass('full-width');
+        $('.toggle-sidebar').text($textShow);
+    }
+
     $('.toggle-sidebar').on('click',function(){
         $trigger = $(this);
         $main = $('#main');
         if ($main.hasClass('full-width')) {
             $main.removeClass('full-width');
             $trigger.text($textHide);
+            $.cookie('sidebar', '', {path: '/'});
         } else {
             $main.addClass('full-width');
             $trigger.text($textShow);
+            $.cookie('sidebar', 'hidden', {path: '/'});
         }
     });
 });

@@ -8,7 +8,7 @@
   },
   "content_scripts": [
     {
-      "js": ["jquery.min.js","inject.js"],
+      "js": ["jquery.min.js","jquery.cookie.js","inject.js"],
 
       "matches": [
         "*://redmine.cps-projects.de/*/agile/*"
