@@ -198,17 +198,19 @@ $(function() {
  * Toggle swimlanes
  */
 $(function() {
-    // Hide all swimlanes on start
-    $('.swimlane.group').removeClass('open');
-    $('.swimlane.group').next('.swimlane.issue').css('display', 'none');
+    $swimlanesSettings = getUserSetting('swimlanes');
+    if ($swimlanesSettings == null) {
+        $swimlanesSettings = {};
+    }
 
-    // Show only swimlane "Sprint"
-    $swimlanesToShow = ['Sprint', 'Backlog'];
-    $.each($swimlanesToShow, function(swimlaneKey, swimlaneValue) {
-        var $swimlane = $('.swimlane .expander').siblings('a:contains(' + swimlaneValue + ')')
-                .closest('.swimlane.group');
-        $swimlane.addClass('open');
-        $swimlane.next('.swimlane.issue').css('display', 'table-row');
+    // Hide swimlanes which are configurated to be hidden
+    $swimlanes = $('.swimlane.group');
+    $swimlanes.each(function() {
+        var $swimlane = $(this);
+        if (typeof $swimlanesSettings[$swimlane.data('id')] !== 'undefined' && $swimlanesSettings[$swimlane.data('id')] === 'hidden') {
+            $swimlane.removeClass('open');
+            $swimlane.next('.swimlane.issue').css('display', 'none');
+        }
     });
 });
 
@@ -252,25 +254,42 @@ $(function() {
         .append('<h3>Swimlanes</h3>')
         .append('<form>');
 
+    $swimlanesSettings = getUserSetting('swimlanes');
+    if ($swimlanesSettings == null) {
+        $swimlanesSettings = {};
+    }
+
     $swimlanes.each(function() {
         var $swimlane = $(this),
             $swimlaneTitle = $swimlane.find('.expander').siblings('a:first').text(),
             $checkbox = $('<div><label><input type="checkbox" name="swimlanes[]" value="' + $swimlane.data('id') + '"> ' + $swimlaneTitle + '</label></div>');
-        if ($swimlane.hasClass('open')) {
+        if ((typeof $swimlanesSettings[$swimlane.data('id')] === 'undefined' && $swimlane.hasClass('open')) ||
+            $swimlanesSettings[$swimlane.data('id')] === 'open') {
             $checkbox.find('input').prop('checked', true);
+            $swimlanesSettings[$swimlane.data('id')] = 'open';
+        } else {
+            $swimlanesSettings[$swimlane.data('id')] = 'hidden';
         }
         $swimlanesModule.find('form').append($checkbox);
     });
+    setUserSetting('swimlanes', $swimlanesSettings);
 
     $projectInfoBox.children('.project-info-box-content').append($swimlanesModule);
 
     $swimlanesModule.find(':checkbox').on('change', function() {
         var $checkbox = $(this),
-            $swimlane = $('.swimlane.group[data-id="' + $checkbox.val() + '"]');
+            $swimlane = $('.swimlane.group[data-id="' + $checkbox.val() + '"]'),
+            $swimlanesSettings = getUserSetting('swimlanes');
 
         if (($checkbox.is(':checked') && !$swimlane.hasClass('open')) ||
             (!$checkbox.is(':checked') && $swimlane.hasClass('open'))) {
             $swimlane.find('.expander').trigger('click');
+            if ($swimlane.hasClass('open')) {
+                $swimlanesSettings[$checkbox.val()] = 'open';
+            } else {
+                $swimlanesSettings[$checkbox.val()] = 'hidden';
+            }
+            setUserSetting('swimlanes', $swimlanesSettings);
         }
     });
 });
