@@ -4,6 +4,40 @@
  */
 
 /**
+ * User settings
+ */
+$userSettings = {};
+$localStorageModule = 'redminecustom';
+if (localStorage.getItem($localStorageModule) !== null && localStorage.getItem($localStorageModule) !== 'null') {
+    $userSettings = JSON.parse(localStorage.getItem($localStorageModule));
+} else {
+    $userSettings = {};
+}
+localStorage.setItem($localStorageModule, JSON.stringify($userSettings));
+
+/**
+ * Set user setting
+ * @param $key
+ * @param $value
+ */
+function setUserSetting($key, $value) {
+    $userSettings[$key] = $value;
+    localStorage.setItem($localStorageModule, JSON.stringify($userSettings));
+}
+
+/**
+ * Get user setting by key
+ * @param $key
+ * @returns {*}
+ */
+function getUserSetting($key) {
+    if (typeof $userSettings[$key] !== 'undefined') {
+        return $userSettings[$key];
+    }
+    return null;
+}
+
+/**
  * Get month id by name
  * @param $month
  */
@@ -139,7 +173,7 @@ $(function() {
     $button = $('<button class="button toggle-project-info-box">' + $textHide + '</button>');
     $projectInfoBox = $('#project-info-box');
     $projectInfoBox.prepend($button);
-    if ($.cookie('projectInfoBox') === 'hidden') {
+    if (getUserSetting('projectInfoBox') === 'hidden') {
         $projectInfoBox.removeClass('open');
         $('.toggle-project-info-box').text($textShow);
     }
@@ -149,11 +183,11 @@ $(function() {
         if ($projectInfoBox.hasClass('open')) {
             $projectInfoBox.removeClass('open');
             $trigger.text($textShow);
-            $.cookie('projectInfoBox', 'hidden', {path: '/'});
+            setUserSetting('projectInfoBox', 'hidden');
         } else {
             $projectInfoBox.addClass('open');
             $trigger.text($textHide);
-            $.cookie('projectInfoBox', '', {path: '/'});
+            setUserSetting('projectInfoBox', '');
         }
     });
 });
@@ -188,7 +222,7 @@ $(function() {
     $projectInfoBox = $('#project-info-box');
     $projectInfoBox.prepend($fullWidthTrigger);
 
-    if ($.cookie('sidebar') === 'hidden') {
+    if (getUserSetting('sidebar') === 'hidden') {
         $('#main').addClass('full-width');
         $('.toggle-sidebar').text($textShow);
     }
@@ -199,11 +233,11 @@ $(function() {
         if ($main.hasClass('full-width')) {
             $main.removeClass('full-width');
             $trigger.text($textHide);
-            $.cookie('sidebar', '', {path: '/'});
+            setUserSetting('sidebar', '');
         } else {
             $main.addClass('full-width');
             $trigger.text($textShow);
-            $.cookie('sidebar', 'hidden', {path: '/'});
+            setUserSetting('sidebar', 'hidden');
         }
     });
 });
