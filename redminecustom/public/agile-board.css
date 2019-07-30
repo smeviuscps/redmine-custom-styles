@@ -208,6 +208,30 @@ div.agile-board.autoscroll td.issue-status-col .issue-card.issue-my-task:after {
     clear: both;
 }
 
+#project-info-box .project-info-module .project-info-module-content {
+    display: none;
+    padding: 0 5px;
+}
+
+#project-info-box .project-info-module.open .project-info-module-content {
+    display: block;
+}
+
+#project-info-box .project-info-module.accordion h3 {
+    cursor: pointer;
+}
+
+#project-info-box .project-info-module.accordion h3:before {
+    content: '+';
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+}
+
+#project-info-box .project-info-module.accordion.open h3:before {
+    content: '-';
+}
+
 #project-info-box .button.toggle-sidebar {
     float: right;
 }

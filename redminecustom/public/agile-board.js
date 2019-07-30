@@ -293,3 +293,24 @@ $(function() {
         }
     });
 });
+
+/**
+ * Accordions
+ */
+$(function() {
+    var $accordions = $('#project-info-box .project-info-module');
+    $accordions.addClass('accordion').wrapInner('<div class="project-info-module-content"></div>');
+
+    $accordions.each(function() {
+        var $accordion = $(this),
+            $accordionTrigger = $accordion.find('h3');
+        $accordion.prepend($accordionTrigger);
+        $accordionTrigger.on('click', function() {
+            if ($accordion.hasClass('open')) {
+                $accordion.removeClass('open');
+            } else {
+                $accordion.addClass('open');
+            }
+        });
+    });
+});
