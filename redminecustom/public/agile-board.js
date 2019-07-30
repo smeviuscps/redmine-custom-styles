@@ -72,7 +72,9 @@ function getMonthByName($month) {
 }
 
 // Project Info-Box - Legend - Revolver
-$projectInfoBox = $('<div id="project-info-box" class="open">').append('<div class="project-info-box-content">');
+$projectInfoBox = $('<div id="project-info-box" class="open">')
+    .append('<div class="project-info-box-head">')
+    .append('<div class="project-info-box-content">');
 $('#wrapper3').prepend($projectInfoBox);
 
 // Status badget - Tracker Status - Add css class
@@ -172,7 +174,7 @@ $(function() {
         $textHide = 'Infobox ausblenden';
     $button = $('<button class="button toggle-project-info-box">' + $textHide + '</button>');
     $projectInfoBox = $('#project-info-box');
-    $projectInfoBox.prepend($button);
+    $projectInfoBox.children('.project-info-box-head').prepend($button);
     if (getUserSetting('projectInfoBox') === 'hidden') {
         $projectInfoBox.removeClass('open');
         $('.toggle-project-info-box').text($textShow);
@@ -222,7 +224,7 @@ $(function() {
         $textHide = 'Sidebar ausblenden';
     $fullWidthTrigger = $('<button class="button toggle-sidebar">' + $textHide + '</button>');
     $projectInfoBox = $('#project-info-box');
-    $projectInfoBox.prepend($fullWidthTrigger);
+    $projectInfoBox.children('.project-info-box-head').prepend($fullWidthTrigger);
 
     if (getUserSetting('sidebar') === 'hidden') {
         $('#main').addClass('full-width');

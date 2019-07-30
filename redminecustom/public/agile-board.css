@@ -192,7 +192,14 @@ div.agile-board.autoscroll td.issue-status-col .issue-card.issue-my-task:after {
     z-index: 10;
     background: white;
     border: 1px solid black;
-    padding: 5px 10px;
+    padding: 10px;
+    max-height: 100%;
+    overflow: scroll;
+    box-sizing: border-box;
+}
+
+#project-info-box .project-info-box-head {
+    margin-bottom: 10px;
 }
 
 #project-info-box .project-info-box-content {
@@ -206,6 +213,15 @@ div.agile-board.autoscroll td.issue-status-col .issue-card.issue-my-task:after {
 
 #project-info-box .project-info-module {
     clear: both;
+    border-top: 1px solid black;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+#project-info-box .project-info-module:first-child {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 0;
 }
 
 #project-info-box .project-info-module .project-info-module-content {
