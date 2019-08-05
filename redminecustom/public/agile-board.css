@@ -27,18 +27,6 @@
 
 /* Agile board */
 
-html:not(.agile-board-fullscreen) div.agile-board.autoscroll {
-    overflow: scroll;
-}
-
-html:not(.agile-board-fullscreen) div.agile-board.autoscroll .container-fixed {
-    width: 150%;
-}
-
-html:not(.agile-board-fullscreen) div.agile-board.autoscroll .container-fixed table.list.issues-board.status-colors.sticky {
-    display: none;
-}
-
 /* Status Columns */
 
 html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id]:before {
@@ -81,6 +69,11 @@ html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col
 
 html:not(.agile-board-fullscreen) div.agile-board.autoscroll td.issue-status-col[data-id="9"]:before {
     content: "Release";
+}
+
+table.issues-board thead th.hidden,
+table.issues-board td.hidden {
+    display: none;
 }
 
 /* Status Badges */

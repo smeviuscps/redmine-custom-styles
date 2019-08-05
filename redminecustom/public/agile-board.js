@@ -334,3 +334,87 @@ $(function() {
         });
     });
 });
+
+/**
+ *
+ */
+function updateAgileBoard() {
+    $statusActive = $('table.issues-board:not(.sticky) thead th[data-column-id]');
+    $swimlanes = $('.swimlane.group');
+    $swimlanes.find('td[colspan]').attr('colspan', $statusActive.not('.hidden').length);
+}
+
+/**
+ * Configure agile board
+ */
+$(function() {
+    $projectInfoBox = $('#project-info-box');
+    $boardStatusColumns = $('table.issues-board:not(.sticky) thead th[data-column-id]');
+    $agileBoardModule = $('<div class="project-info-module project-agile-board">')
+        .append('<h3>Agile Board</h3>')
+        .append('<form>');
+
+    // Settings
+    $agileBoardSettings = getUserSetting('agile-board');
+    if ($agileBoardSettings == null) {
+        $agileBoardSettings = {};
+        $agileBoardSettings['columns'] = {};
+    }
+
+    /**
+     * Initiliaze current status
+     */
+    $boardStatusColumns.each(function() {
+        var $statusColumn = $(this),
+            $statusTitle = $statusColumn.text(),
+            $statusColumnsHead = $('table.issues-board thead th[data-column-id="' + $statusColumn.data('column-id') + '"]'),
+            $statusColumns = $('table.issues-board td[data-id="' + $statusColumn.data('column-id') + '"]'),
+            $checkbox = $('<div><label><input type="checkbox" name="issue-status-columns[]" value="' + $statusColumn.data('column-id') + '"> ' + $statusTitle + '</label></div>');
+        if ((typeof $agileBoardSettings['columns'][$statusColumn.data('column-id')] !== 'undefined' && $statusColumn.hasClass('hidden')) ||
+            $agileBoardSettings['columns'][$statusColumn.data('column-id')] === 'hidden') {
+            $checkbox.find('input').prop('checked', false);
+            $statusColumnsHead.addClass('hidden');
+            $statusColumns.addClass('hidden');
+            $agileBoardSettings['columns'][$statusColumn.data('column-id')] = 'hidden';
+        } else {
+            $checkbox.find('input').prop('checked', true);
+            $statusColumnsHead.removeClass('hidden');
+            $statusColumns.removeClass('hidden');
+            $agileBoardSettings['columns'][$statusColumn.data('column-id')] = 'open';
+        }
+        $agileBoardModule.find('form').append($checkbox);
+    });
+    setUserSetting('agile-board', $agileBoardSettings);
+
+    // Update colspan of table rows
+    updateAgileBoard();
+
+    $projectInfoBox.children('.project-info-box-content').prepend($agileBoardModule);
+
+    /**
+     * Checkbox event
+     */
+    $agileBoardModule.find(':checkbox').on('change', function() {
+        var $checkbox = $(this),
+            $statusColumnsHead = $('table.issues-board thead th[data-column-id="' + $checkbox.val() + '"]'),
+            $statusColumns = $('table.issues-board td[data-id="' + $checkbox.val() + '"]'),
+            $agileBoardSettings = getUserSetting('agile-board');
+
+        if (($checkbox.is(':checked') && $statusColumnsHead.hasClass('hidden')) ||
+            (!$checkbox.is(':checked') && !$statusColumnsHead.hasClass('hidden'))) {
+            if ($statusColumnsHead.hasClass('hidden')) {
+                $statusColumnsHead.removeClass('hidden');
+                $statusColumns.removeClass('hidden');
+                $agileBoardSettings['columns'][$checkbox.val()] = 'open';
+            } else {
+                $statusColumnsHead.addClass('hidden');
+                $statusColumns.addClass('hidden');
+                $agileBoardSettings['columns'][$checkbox.val()] = 'hidden';
+            }
+            setUserSetting('agile-board', $agileBoardSettings);
+
+            // Update colspan of table rows
+            updateAgileBoard();
+        }
+    });
+});
