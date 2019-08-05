@@ -297,45 +297,6 @@ $(function() {
 });
 
 /**
- * Accordions
- */
-$(function() {
-    var $accordions = $('#project-info-box .project-info-module'),
-        $accordionSettings = getUserSetting('accordions');
-
-    if ($accordionSettings == null) {
-        $accordionSettings = {};
-    }
-
-    // Add accordion markup
-    $accordions.addClass('accordion').wrapInner('<div class="project-info-module-content"></div>');
-
-    $accordions.each(function() {
-        var $accordion = $(this),
-            $accordionTrigger = $accordion.find('h3'),
-            $accordionTitle = $accordionTrigger.text();
-        $accordion.prepend($accordionTrigger);
-
-        // Open accordion which is configurated to be open
-        if ($accordionSettings[$accordionTitle] === 'open') {
-            $accordion.addClass('open');
-        }
-
-        // Toggle accordion by click
-        $accordionTrigger.on('click', function() {
-            if ($accordion.hasClass('open')) {
-                $accordion.removeClass('open');
-                $accordionSettings[$accordionTitle] = 'hidden';
-            } else {
-                $accordion.addClass('open');
-                $accordionSettings[$accordionTitle] = 'open';
-            }
-            setUserSetting('accordions', $accordionSettings);
-        });
-    });
-});
-
-/**
  *
  */
 function updateAgileBoard() {
@@ -416,5 +377,44 @@ $(function() {
             // Update colspan of table rows
             updateAgileBoard();
         }
+    });
+});
+
+/**
+ * Accordions
+ */
+$(function() {
+    var $accordions = $('#project-info-box .project-info-module'),
+        $accordionSettings = getUserSetting('accordions');
+
+    if ($accordionSettings == null) {
+        $accordionSettings = {};
+    }
+
+    // Add accordion markup
+    $accordions.addClass('accordion').wrapInner('<div class="project-info-module-content"></div>');
+
+    $accordions.each(function() {
+        var $accordion = $(this),
+            $accordionTrigger = $accordion.find('h3'),
+            $accordionTitle = $accordionTrigger.text();
+        $accordion.prepend($accordionTrigger);
+
+        // Open accordion which is configurated to be open
+        if ($accordionSettings[$accordionTitle] === 'open') {
+            $accordion.addClass('open');
+        }
+
+        // Toggle accordion by click
+        $accordionTrigger.on('click', function() {
+            if ($accordion.hasClass('open')) {
+                $accordion.removeClass('open');
+                $accordionSettings[$accordionTitle] = 'hidden';
+            } else {
+                $accordion.addClass('open');
+                $accordionSettings[$accordionTitle] = 'open';
+            }
+            setUserSetting('accordions', $accordionSettings);
+        });
     });
 });
